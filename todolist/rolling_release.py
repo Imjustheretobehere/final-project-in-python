@@ -1,19 +1,13 @@
-#NEXT = implement json, maybe dumb bozo
-#NEXT = continue working on -sm, like adding the function to leave and the loop to keep you in special mode.
-
-
 						#DISCLAIMER:
 
 
 r"""
 Experimental copy.
-"""
 
+may include software bugs.
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+the most importantest of important notes:
 
-
-#  the most importantest of important notes
-
-"""
 use:
 
 randBuilder = assignRandom(stringList)
@@ -28,12 +22,11 @@ import random   #gambling effects
 import os   #i can see the errors already
 import platform   #i can already see all the errors
 import time   #the only thing i use is time.sleep()
-import sys
-import subprocess
-import rich
-from rich.console import Console
+import sys    #error error error error error error error error error error error (im not sure if i need this anymore)
+import rich   #text styling
+from rich.console import Console    #i still dont understand this
 console = Console()
-from rich.rule import Rule
+from rich.rule import Rule    #looks cool
 
 #  Define
 
@@ -54,6 +47,8 @@ stringList = ["a", "b", "c", "d", "e", "f",
 				"y", "z", "0", "1", "2", "3", 
 				"4", "5", "6", "7", "8", "9",]
 				#Yeah, I forgot to add uppercase. what are you gonna do about it?
+
+taskAmount = ""
 
 newTask = "" #used for strings for adding to dicts uh wait uh im not explaining this to you
 
@@ -94,7 +89,7 @@ def specialMode():
 			os.system("clear")
 		for a, b in todoDict.items():
 
-			print(f"-{iForgotHowToEnumerate}. (key={a}) {b}")
+			rich.print(f"[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
 			iForgotHowToEnumerate += 1
 		iForgotHowToEnumerate = 1
 
@@ -107,7 +102,7 @@ def specialMode():
 			randBuilder = assignRandom(stringList)
 			newTask = userUser
 			dictAdd(randBuilder, newTask)
-			print(f"-Logged {userUser} with id {randBuilder}")
+			rich.print(f"[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
 			time.sleep(3)
 
 #  Main
@@ -126,7 +121,8 @@ while True:
 	rich.print(r"[italic]\Todo list\\[/italic]")
 	print("-Welcome to the TODO LIST application")
 	console.print(Rule())
-
+	taskAmount = len(todoDict)
+	rich.print(f"[bold green on white]{taskAmount} Tasks[/bold green on white]")
 	#\\Todo list\\
 	#-Welcome to the TODO LIST application
 
@@ -145,7 +141,7 @@ while True:
 
 		for a, b in todoDict.items():
 
-			print(f"-{iForgotHowToEnumerate}. (key={a}) {b}")
+			rich.print(f"[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
 			iForgotHowToEnumerate += 1
 		iForgotHowToEnumerate = 1
 		time.sleep(timetosleep)
