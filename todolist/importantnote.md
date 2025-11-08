@@ -1,3 +1,6 @@
+NOTE:
+ definitions.py does absolutely nothing.
+
 DEPENDENCIES:
 
 import rich
