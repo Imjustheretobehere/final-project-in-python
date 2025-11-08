@@ -5,6 +5,8 @@ DEPENDENCIES:
 
 import rich
 
+import ujson
+
 LOG:
 
 Friday, nov 7 8:42 PM, log updated.
