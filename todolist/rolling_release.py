@@ -91,7 +91,7 @@ def specialMode():
 			os.system("clear")
 		for a, b in todoDict.items():
 
-			rich.print(f"[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
+			rich.print(f"	[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
 			iForgotHowToEnumerate += 1
 		iForgotHowToEnumerate = 1
 
@@ -105,7 +105,7 @@ def specialMode():
 			randBuilder = assignRandom(stringList)
 			newTask = userUser
 			dictAdd(randBuilder, newTask)
-			rich.print(f"[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
+			rich.print(f"	[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
 			time.sleep(3)
 
 #\\\\\\\\\\\\\\\\\
@@ -149,7 +149,7 @@ while True:
 	#\\Todo list\\
 	#-Welcome to the TODO LIST application
 
-	print("-Would you like to list tasks (\"-l\"), add tasks (\"-a\"), delete tasks (\"-d\"), or turn on special mode? (\"-sm\")") #literally - lol
+	print("    -Would you like to list tasks (\"-l\"), add tasks (\"-a\"), delete tasks (\"-d\"), or turn on special mode? (\"-sm\")") #literally - lol
 
 	userUser = input() #Get input
 
@@ -164,7 +164,7 @@ while True:
 
 		for a, b in todoDict.items():
 
-			rich.print(f"[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
+			rich.print(f"	[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
 			iForgotHowToEnumerate += 1
 		iForgotHowToEnumerate = 1
 		time.sleep(timetosleep)
@@ -182,7 +182,7 @@ while True:
 		randBuilder = assignRandom(stringList)
 		newTask	= input("-Please enter your new task : ")
 		dictAdd(randBuilder, newTask)
-		rich.print(f"[green]-Logged {newTask} with id [bold]{randBuilder}[/bold][/green]")
+		rich.print(f"	[green]-Logged {newTask} with id [bold]{randBuilder}[/bold][/green]")
 		time.sleep(3)
 
 
@@ -200,7 +200,7 @@ while True:
 		try:
 			del todoDict[userUser]
 		except KeyError:
-			rich.print("[red][bold]-Key does not exist. Error: KeyError[/bold][/red]")
+			rich.print("	[red][bold]-Key does not exist. Error: KeyError[/bold][/red]")
 			time.sleep(3)
 
 
