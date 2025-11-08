@@ -5,3 +5,5 @@ HOW DO I EXIT THE MATRIXXXXXX
 i dont know
 HOW DO I EXIT THE LOOP
 press ctrl + c like a normal person (or maybe thats not normal)
+I'm testing your code and I added like 40 tasks, HOW DO I DELETE THEM ALL
+in the next rolling_release.py update, ill add the ability to type * and delete all tasks
