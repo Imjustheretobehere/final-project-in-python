@@ -1,4 +1,4 @@
-							#DISCLAIMER:
+						#DISCLAIMER:
 
 
 r"""
@@ -82,9 +82,9 @@ def dictAdd(randBuilder, newTask):
 #\\\\\\\\\\\\\\\\\
 
 def specialMode():
-	save_todos()
 	global todoDict, iForgotHowToEnumerate, userUser, assignRandom, stringList, dictAdd, newTask, randBuilder
 	while True:
+		save_todos()
 		if platform.system() == "Windows":
 			os.system("cls")
 		else:
