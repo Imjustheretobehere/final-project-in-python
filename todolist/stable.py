@@ -1,62 +1,37 @@
-						#DISCLAIMER:
-
-
 r"""
- ___    ____ ___  _   _ _     ____  _   _ _ _____ 
-|_ _|  / ___/ _ \| | | | |   |  _ \| \ | ( )_   _|
- | |  | |  | | | | | | | |   | | | |  \| |/  | |  
- | |  | |__| |_| | |_| | |___| |_| | |\  |   | |  
-|___|_ \____\___/_\___/|_____|____/|_| \_|   |_|  
-|  ___|_ _| \ | |_ _/ ___|| | | |                 
-| |_   | ||  \| || |\___ \| |_| |                 
-|  _|  | || |\  || | ___) |  _  |                 
-|_|   |___|_| \_|___|____/|_| |_|                  
-																																					
 
-Nows the time to tell you i should have implemented json, BUT I DIDNT!
-I worked on this for 2 days. 2 days, pretty impressive huh? 
-(please say yes im begging you to compliment me if you can't tell)
+Stable copy
+reminder for jack : do not sell software (im using an unlicensed copy of Sublime Text) (and also I don't want to sell poorly made software for money)
 
-(i know you can)
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+the most importantest of important notes:
 
-Please dont delete this link. oh wait if you delete it you cant see this, huh?
-so uh, if you want to criticize my work, think about this first.
-
-i appreciate any and all feedback
-
-"""
-
-
-
-#  the most importantest of important notes
-
-"""
 use:
 
-randBuilder = assignRandom(randBuilder, stringList)
+randBuilder = assignRandom(stringList)
 
 to randomize randBuilder into a 4 bit string
 """
 
 #  Import
 
-import json   #Mu says you're unused. (please stay unused)
 import random   #gambling effects
 import os   #i can see the errors already
 import platform   #i can already see all the errors
 import time   #the only thing i use is time.sleep()
-import sys
-import subprocess
-import rich
-from rich.console import Console
+import rich   #text styling
+from rich.console import Console    #i still dont understand this
 console = Console()
-from rich.rule import Rule
+from rich.rule import Rule    #looks cool
+import ujson
+from rich.progress import Progress
 
 #  Define
+TODO_FILE = "todos.json"
 
 iForgotHowToEnumerate = 1
 
-userUser = "Lorem ipsum dolor sit amet. "
+userUser = "Lorem ipsum dolor sit amet."
 
 todoDict = {
 	#"Placeholder": "data (used for testing purposes)"
@@ -71,6 +46,8 @@ stringList = ["a", "b", "c", "d", "e", "f",
 				"y", "z", "0", "1", "2", "3", 
 				"4", "5", "6", "7", "8", "9",]
 				#Yeah, I forgot to add uppercase. what are you gonna do about it?
+
+taskAmount = ""
 
 newTask = "" #used for strings for adding to dicts uh wait uh im not explaining this to you
 
@@ -102,6 +79,52 @@ def dictAdd(randBuilder, newTask):
 
 #\\\\\\\\\\\\\\\\\
 
+def specialMode():
+	global todoDict, iForgotHowToEnumerate, userUser, assignRandom, stringList, dictAdd, newTask, randBuilder
+	while True:
+		save_todos()
+		if platform.system() == "Windows":
+			os.system("cls")
+		else:
+			os.system("clear")
+		for a, b in todoDict.items():
+
+			rich.print(f"	[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
+			iForgotHowToEnumerate += 1
+		iForgotHowToEnumerate = 1
+
+		userUser = input("-Type the key you want to delete. \n-or say the task you want to add. \n-Say -sm to exit. : ")
+		if userUser == "-sm":
+			return
+		try:
+			del todoDict[userUser]
+			save_todos()
+		except KeyError:
+			randBuilder = assignRandom(stringList)
+			newTask = userUser
+			dictAdd(randBuilder, newTask)
+			rich.print(f"	[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
+			time.sleep(3)
+
+#\\\\\\\\\\\\\\\\\
+
+def load_todos():
+    global todoDict
+    try:
+        with open(TODO_FILE, "r") as f:
+            todoDict = ujson.loads(f.read())
+    except (FileNotFoundError, ValueError):
+        todoDict = {}
+
+def save_todos():
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Saving tasks...", total=1)
+        with open(TODO_FILE, "w") as f:
+            f.write(ujson.dumps(todoDict))
+        progress.update(task, advance=1)
+
+load_todos()
+
 #  Main
 if platform.system() == "Windows":
 	os.system("cls")
@@ -110,6 +133,7 @@ else:
 
 
 while True:
+	save_todos()
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
@@ -118,11 +142,12 @@ while True:
 	rich.print(r"[italic]\Todo list\\[/italic]")
 	print("-Welcome to the TODO LIST application")
 	console.print(Rule())
-
+	taskAmount = len(todoDict)
+	rich.print(f"[bold green on white]{taskAmount} Tasks[/bold green on white]")
 	#\\Todo list\\
 	#-Welcome to the TODO LIST application
 
-	print("-Would you like to list tasks (\"-l\"), add tasks (\"-a\"), or delete tasks? (\"-d\")") #literally - lol
+	print("    -Would you like to list tasks (\"-l\"), add tasks (\"-a\"), delete tasks (\"-d\"), or turn on special mode? (\"-sm\")") #literally - lol
 
 	userUser = input() #Get input
 
@@ -137,7 +162,7 @@ while True:
 
 		for a, b in todoDict.items():
 
-			print(f"-{iForgotHowToEnumerate}. (key={a}) {b}")
+			rich.print(f"	[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
 			iForgotHowToEnumerate += 1
 		iForgotHowToEnumerate = 1
 		time.sleep(timetosleep)
@@ -155,6 +180,11 @@ while True:
 		randBuilder = assignRandom(stringList)
 		newTask	= input("-Please enter your new task : ")
 		dictAdd(randBuilder, newTask)
+		rich.print(f"	[green]-Logged {newTask} with id [bold]{randBuilder}[/bold][/green]")
+		time.sleep(3)
+
+
+		timetosleep = len(todoDict) + 5
 
 		if platform.system() == "Windows":
 			os.system("cls")
@@ -168,7 +198,7 @@ while True:
 		try:
 			del todoDict[userUser]
 		except KeyError:
-			rich.print("[red][bold]-Key does not exist. Error: KeyError[/bold][/red]")
+			rich.print("	[red][bold]-Key does not exist. Error: KeyError[/bold][/red]")
 			time.sleep(3)
 
 
@@ -176,3 +206,6 @@ while True:
 			os.system("cls")
 		else:
 			os.system("clear")
+
+	elif (userUser == "-sm"):
+		specialMode()
