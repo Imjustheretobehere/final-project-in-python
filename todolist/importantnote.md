@@ -16,3 +16,8 @@ rolling_release.py newest update :
 
 stable.py newest update :
 added rich stuff
+
+
+Saturday nov 8 11:34,
+
+i vibe coded ujson in, ujson is now required in rolling release.
