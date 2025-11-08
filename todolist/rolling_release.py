@@ -1,4 +1,4 @@
-						#DISCLAIMER:
+							#DISCLAIMER:
 
 
 r"""
@@ -17,22 +17,23 @@ to randomize randBuilder into a 4 bit string
 
 #  Import
 
-import json   #Mu says you're unused. (please stay unused)
 import random   #gambling effects
 import os   #i can see the errors already
 import platform   #i can already see all the errors
 import time   #the only thing i use is time.sleep()
-import sys    #error error error error error error error error error error error (im not sure if i need this anymore)
 import rich   #text styling
 from rich.console import Console    #i still dont understand this
 console = Console()
 from rich.rule import Rule    #looks cool
+import ujson
+from rich.progress import Progress
 
 #  Define
+TODO_FILE = "todos.json"
 
 iForgotHowToEnumerate = 1
 
-userUser = "Lorem ipsum dolor sit amet. "
+userUser = "Lorem ipsum dolor sit amet."
 
 todoDict = {
 	#"Placeholder": "data (used for testing purposes)"
@@ -81,6 +82,7 @@ def dictAdd(randBuilder, newTask):
 #\\\\\\\\\\\\\\\\\
 
 def specialMode():
+	save_todos()
 	global todoDict, iForgotHowToEnumerate, userUser, assignRandom, stringList, dictAdd, newTask, randBuilder
 	while True:
 		if platform.system() == "Windows":
@@ -98,12 +100,32 @@ def specialMode():
 			return
 		try:
 			del todoDict[userUser]
+			save_todos()
 		except KeyError:
 			randBuilder = assignRandom(stringList)
 			newTask = userUser
 			dictAdd(randBuilder, newTask)
 			rich.print(f"[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
 			time.sleep(3)
+
+#\\\\\\\\\\\\\\\\\
+
+def load_todos():
+    global todoDict
+    try:
+        with open(TODO_FILE, "r") as f:
+            todoDict = ujson.loads(f.read())
+    except (FileNotFoundError, ValueError):
+        todoDict = {}
+
+def save_todos():
+    with Progress() as progress:
+        task = progress.add_task("[cyan]Saving tasks...", total=1)
+        with open(TODO_FILE, "w") as f:
+            f.write(ujson.dumps(todoDict))
+        progress.update(task, advance=1)
+
+load_todos()
 
 #  Main
 if platform.system() == "Windows":
@@ -113,6 +135,7 @@ else:
 
 
 while True:
+	save_todos()
 	if platform.system() == "Windows":
 		os.system("cls")
 	else:
@@ -159,6 +182,9 @@ while True:
 		randBuilder = assignRandom(stringList)
 		newTask	= input("-Please enter your new task : ")
 		dictAdd(randBuilder, newTask)
+		rich.print(f"[green]-Logged {newTask} with id [bold]{randBuilder}[/bold][/green]")
+		time.sleep(3)
+
 
 		timetosleep = len(todoDict) + 5
 
