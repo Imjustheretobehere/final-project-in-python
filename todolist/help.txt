@@ -1,0 +1,7 @@
+DOES MY CODE HAVE AUTO SAVING???????
+answer :
+it should, i placed save function before the clear in non special mode and in normal special mode oh wait no uh let me fix that rq
+HOW DO I EXIT THE MATRIXXXXXX
+i dont know
+HOW DO I EXIT THE LOOP
+press ctrl + c like a normal person (or maybe thats not normal)
