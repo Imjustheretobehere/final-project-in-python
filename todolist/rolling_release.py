@@ -108,6 +108,7 @@ def specialMode():
 			newTask = userUser
 			dictAdd(randBuilder, newTask)
 			print(f"-Logged {userUser} with id {randBuilder}")
+			time.sleep(1)
 
 #  Main
 if platform.system() == "Windows":
