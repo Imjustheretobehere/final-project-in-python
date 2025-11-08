@@ -91,13 +91,17 @@ def specialMode():
 			os.system("clear")
 		for a, b in todoDict.items():
 
-			rich.print(f"	[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
+			rich.print(f"[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
 			iForgotHowToEnumerate += 1
 		iForgotHowToEnumerate = 1
 
 		userUser = input("-Type the key you want to delete. \n-or say the task you want to add. \n-Say -sm to exit. : ")
-		if userUser == "-sm":
+		if (userUser == "-sm"):
 			return
+		if (userUser == "*"):
+			todoDict == {
+			
+			}
 		try:
 			del todoDict[userUser]
 			save_todos()
@@ -105,7 +109,7 @@ def specialMode():
 			randBuilder = assignRandom(stringList)
 			newTask = userUser
 			dictAdd(randBuilder, newTask)
-			rich.print(f"	[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
+			rich.print(f"[green]-Logged {userUser} with id [bold]{randBuilder}[/bold][/green]")
 			time.sleep(3)
 
 #\\\\\\\\\\\\\\\\\
@@ -149,31 +153,31 @@ while True:
 	#\\Todo list\\
 	#-Welcome to the TODO LIST application
 
-	print("    -Would you like to list tasks (\"-l\"), add tasks (\"-a\"), delete tasks (\"-d\"), or turn on special mode? (\"-sm\")") #literally - lol
-
+	print("    -Would you like to list tasks (\"-l\"), \n    -add tasks (\"-a\"),    \n    -delete tasks (\"-d\"),\n    -or turn on special mode? (\"-sm\")") #literally - lol
+	console.print(Rule())
 	userUser = input() #Get input
 
 	#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 	if (userUser == "-l"):
+		if len(todoDict) == 0:
+			rich.print("[red]-No tasks.[/red]")
+			time.sleep(1.5)
 
-		if platform.system() == "Windows":
-			os.system("cls")
 		else:
-			os.system("clear")
 
-		for a, b in todoDict.items():
+			for a, b in todoDict.items():
 
-			rich.print(f"	[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
-			iForgotHowToEnumerate += 1
-		iForgotHowToEnumerate = 1
-		time.sleep(timetosleep)
+				rich.print(f"[white][blue]-{iForgotHowToEnumerate}.[/blue] [/white](key=[white][bold]{a}[/bold]) {b}[/white]")
+				iForgotHowToEnumerate += 1
+			iForgotHowToEnumerate = 1
+			time.sleep(timetosleep)
 
 
-		if platform.system() == "Windows":
-			os.system("cls")
-		else:
-			os.system("clear")
+			if platform.system() == "Windows":
+				os.system("cls")
+			else:
+				os.system("clear")
 
 	#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -182,7 +186,7 @@ while True:
 		randBuilder = assignRandom(stringList)
 		newTask	= input("-Please enter your new task : ")
 		dictAdd(randBuilder, newTask)
-		rich.print(f"	[green]-Logged {newTask} with id [bold]{randBuilder}[/bold][/green]")
+		rich.print(f"[green]-Logged {newTask} with id [bold]{randBuilder}[/bold][/green]")
 		time.sleep(3)
 
 
@@ -196,12 +200,18 @@ while True:
 	#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 	elif (userUser == "-d"):
-		userUser = input("-Please say the key of the dict item you would like to delete : ")
-		try:
-			del todoDict[userUser]
-		except KeyError:
-			rich.print("	[red][bold]-Key does not exist. Error: KeyError[/bold][/red]")
-			time.sleep(3)
+		userUser = input("-Please say the key of the dict item you would like to delete (* = all): ")
+		if (userUser == "*"):
+			todoDict = {
+
+			}
+			print("Deleted all tasks")
+		elif (userUser != "*"):
+			try:
+				del todoDict[userUser]
+			except KeyError:
+				rich.print("[red][bold]-Key does not exist. Error: KeyError[/bold][/red]")
+				time.sleep(3)
 
 
 		if platform.system() == "Windows":
