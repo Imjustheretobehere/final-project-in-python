@@ -1,4 +1,4 @@
-						#DISCLAIMER:
+							#DISCLAIMER:
 
 
 r"""
@@ -25,7 +25,7 @@ import rich   #text styling
 from rich.console import Console    #i still dont understand this
 console = Console()
 from rich.rule import Rule    #looks cool
-import ujson
+import json
 from rich.progress import Progress
 
 #  Define
@@ -69,10 +69,6 @@ def assignRandom(stringList):
 			return randBuilder
 		# if it exists, loop again to generate a new one
 
-
-		else:
-			return randBuilder
-
 #\\\\\\\\\\\\\\\\\
 
 def dictAdd(randBuilder, newTask):
@@ -114,20 +110,20 @@ def specialMode():
 
 #\\\\\\\\\\\\\\\\\
 
-def load_todos():
-    global todoDict
-    try:
-        with open(TODO_FILE, "r") as f:
-            todoDict = ujson.loads(f.read())
-    except (FileNotFoundError, ValueError):
-        todoDict = {}
-
 def save_todos():
     with Progress() as progress:
         task = progress.add_task("[cyan]Saving tasks...", total=1)
         with open(TODO_FILE, "w") as f:
-            f.write(ujson.dumps(todoDict))
+            f.write(json.dumps(todoDict))
         progress.update(task, advance=1)
+
+def load_todos():
+    global todoDict
+    try:
+        with open(TODO_FILE, "r") as f:
+            todoDict = json.loads(f.read())
+    except (FileNotFoundError, ValueError):
+        todoDict = {}
 
 load_todos()
 
@@ -221,3 +217,4 @@ while True:
 
 	elif (userUser == "-sm"):
 		specialMode()
+
